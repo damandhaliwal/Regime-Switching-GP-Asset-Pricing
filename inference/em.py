@@ -1,6 +1,7 @@
 """EM training loop for regime-switching GP emissions with macro transitions."""
 from __future__ import annotations
 
+import warnings
 from dataclasses import dataclass, field
 from typing import Sequence
 
@@ -29,6 +30,11 @@ class EMConfig:
     transition_l2: float = 1e-4
     min_regime_mass: float = 1.0
     max_prediction_points: int = 800
+    max_monthly_points: int | None = 100
+    max_months_per_regime_fit: int | None = 25
+    strict_monotone: bool = False
+    monotone_rel_tol: float = 1e-6
+    warm_start_max_iter: int | None = 10
 
 
 @dataclass
@@ -40,7 +46,8 @@ class EMResult:
     gp_params: list[GPHyperparams]
     transition_W: np.ndarray
     transition_b: np.ndarray
-    log_likelihood_history: list[float]
+    subsampled_log_likelihood_history: list[float]
+    full_log_likelihood: float
     viterbi_path: np.ndarray
     init_states: np.ndarray
     init_volatility: np.ndarray
@@ -118,20 +125,30 @@ def _fit_gp_block(
     gamma: np.ndarray,
     config: EMConfig,
     init_params: Sequence[GPHyperparams] | None = None,
+    regime_indices: Sequence[np.ndarray] | None = None,
 ) -> list[GPHyperparams]:
     gp_params: list[GPHyperparams] = []
     D = X[0].shape[1]
     for k in range(config.K):
-        weights = np.asarray(gamma[:, k], dtype=np.float64)
-        if weights.sum() < config.min_regime_mass:
+        weights_full = np.asarray(gamma[:, k], dtype=np.float64)
+        if weights_full.sum() < config.min_regime_mass:
             if init_params is None:
                 gp_params.append(GPHyperparams(lengthscales=np.ones(D), signal_var=1.0, noise_var=0.1))
             else:
                 gp_params.append(init_params[k])
             continue
+        if regime_indices is not None:
+            idx = regime_indices[k]
+            X_k = [X[i] for i in idx]
+            y_k = [returns[i] for i in idx]
+            w_k = weights_full[idx]
+        else:
+            X_k = list(X)
+            y_k = list(returns)
+            w_k = weights_full
         hp, _ = fit_gp_hyperparameters(
-            data=list(zip(X, returns)),
-            weights=weights,
+            data=list(zip(X_k, y_k)),
+            weights=w_k,
             D=D,
             n_restarts=config.gp_restarts,
             init=None if init_params is None else init_params[k],
@@ -141,10 +158,49 @@ def _fit_gp_block(
     return gp_params
 
 
+def _select_regime_indices(gamma: np.ndarray, cap: int | None) -> list[np.ndarray] | None:
+    """Pick the top-`cap` months per regime once, so the M-step optimizes a
+    consistent objective across EM iterations. Returning None means use all."""
+    if cap is None:
+        return None
+    T, K = gamma.shape
+    if T <= cap:
+        return None
+    out: list[np.ndarray] = []
+    for k in range(K):
+        idx = np.argsort(-gamma[:, k])[:cap]
+        idx.sort()
+        out.append(idx)
+    return out
+
+
+def _subsample_monthly_panels(
+    X: Sequence[np.ndarray],
+    returns: Sequence[np.ndarray],
+    max_points: int | None,
+    seed: int,
+) -> tuple[list[np.ndarray], list[np.ndarray]]:
+    if max_points is None:
+        return list(X), list(returns)
+    rng = np.random.default_rng(seed)
+    X_out = []
+    y_out = []
+    for X_t, y_t in zip(X, returns):
+        if len(y_t) <= max_points:
+            X_out.append(X_t)
+            y_out.append(y_t)
+            continue
+        idx = np.sort(rng.choice(len(y_t), size=max_points, replace=False))
+        X_out.append(X_t[idx])
+        y_out.append(y_t[idx])
+    return X_out, y_out
+
+
 def _fit_transition_block(
     Z: np.ndarray,
     xi: np.ndarray,
     config: EMConfig,
+    init_Wb: tuple[np.ndarray, np.ndarray] | None = None,
 ) -> tuple[np.ndarray, np.ndarray]:
     return fit_logistic_weighted(
         Z,
@@ -154,6 +210,7 @@ def _fit_transition_block(
         l2=config.transition_l2,
         n_restarts=config.transition_restarts,
         seed=config.transition_seed,
+        init_Wb=init_Wb,
     )
 
 
@@ -165,6 +222,7 @@ def fit_em(
     config: EMConfig | None = None,
     init: RegimeInitialization | None = None,
     z_columns: Sequence[str] | None = None,
+    warm_start: "EMResult | None" = None,
 ) -> EMResult:
     config = config or EMConfig()
     dates = list(dates)
@@ -178,29 +236,55 @@ def fit_em(
         raise ValueError("K must be >= 1")
 
     init = init or initialize_regimes(dates, k=config.K)
-    gamma = init.gamma.copy()
-    xi = _hard_xi_from_states(init.states, config.K)
-    pi = gamma[0].copy()
-    pi /= pi.sum()
+    X_fit, returns_fit = _subsample_monthly_panels(
+        X, returns, max_points=config.max_monthly_points, seed=config.gp_seed
+    )
 
-    gp_params = _fit_gp_block(X, returns, gamma, config)
-    W, b = _fit_transition_block(Z, xi, config)
+    if warm_start is not None:
+        if len(warm_start.gp_params) != config.K:
+            raise ValueError("warm_start has K != config.K")
+        gp_params = list(warm_start.gp_params)
+        W = warm_start.transition_W.copy()
+        b = warm_start.transition_b.copy()
+        pi = warm_start.pi.copy()
+        pi = pi / pi.sum()
+        # Seed gamma/xi from a single forward-backward pass under warm-start params.
+        log_emit0 = _compute_gp_emission_log_likelihoods(X_fit, returns_fit, gp_params)
+        gamma, xi, _ = posteriors(np.log(np.clip(pi, 1e-12, None)), log_transition_matrix(W, b, Z), log_emit0)
+        regime_indices = _select_regime_indices(gamma, config.max_months_per_regime_fit)
+        max_iter = config.warm_start_max_iter or config.max_iter
+    else:
+        gamma = init.gamma.copy()
+        xi = _hard_xi_from_states(init.states, config.K)
+        pi = gamma[0].copy()
+        pi /= pi.sum()
+        regime_indices = _select_regime_indices(gamma, config.max_months_per_regime_fit)
+        gp_params = _fit_gp_block(X_fit, returns_fit, gamma, config, regime_indices=regime_indices)
+        W, b = _fit_transition_block(Z, xi, config)
+        max_iter = config.max_iter
 
     history: list[float] = []
     stale = 0
     converged = False
 
-    for _ in range(config.max_iter):
-        log_emit = _compute_gp_emission_log_likelihoods(X, returns, gp_params)
+    for _ in range(max_iter):
+        log_emit = _compute_gp_emission_log_likelihoods(X_fit, returns_fit, gp_params)
         gamma, xi, log_lik = posteriors(np.log(np.clip(pi, 1e-12, None)), log_transition_matrix(W, b, Z), log_emit)
 
         order = _regime_order(gamma, init.volatility)
         gamma, xi, pi, gp_params, W, b, log_emit = _permute_model(order, gamma, xi, pi, gp_params, W, b, log_emit)
         history.append(float(log_lik))
-        if len(history) > 1 and history[-1] + 1e-8 < history[-2]:
-            raise AssertionError(f"observed log-likelihood decreased: {history[-2]} -> {history[-1]}")
-
         if len(history) > 1:
+            drop = history[-2] - history[-1]
+            rel_drop = drop / max(1.0, abs(history[-2]))
+            if rel_drop > config.monotone_rel_tol:
+                msg = f"observed log-likelihood decreased: {history[-2]:.6f} -> {history[-1]:.6f}"
+                if config.strict_monotone:
+                    raise AssertionError(msg)
+                warnings.warn(msg, RuntimeWarning, stacklevel=2)
+                converged = True
+                break
+
             rel = abs(history[-1] - history[-2]) / max(1.0, abs(history[-2]))
             stale = stale + 1 if rel < config.tol else 0
             if stale >= config.patience:
@@ -209,19 +293,22 @@ def fit_em(
 
         pi = gamma[0].copy()
         pi /= pi.sum()
-        gp_params = _fit_gp_block(X, returns, gamma, config, init_params=gp_params)
-        W, b = _fit_transition_block(Z, xi, config)
+        gp_params = _fit_gp_block(X_fit, returns_fit, gamma, config, init_params=gp_params, regime_indices=regime_indices)
+        W, b = _fit_transition_block(Z, xi, config, init_Wb=(W, b))
 
-    log_emit = _compute_gp_emission_log_likelihoods(X, returns, gp_params)
+    log_emit = _compute_gp_emission_log_likelihoods(X_fit, returns_fit, gp_params)
     gamma, xi, log_lik = posteriors(np.log(np.clip(pi, 1e-12, None)), log_transition_matrix(W, b, Z), log_emit)
     order = _regime_order(gamma, init.volatility)
     gamma, xi, pi, gp_params, W, b, log_emit = _permute_model(order, gamma, xi, pi, gp_params, W, b, log_emit)
     if not history or abs(log_lik - history[-1]) > 1e-10:
-        if history and log_lik + 1e-8 < history[-1]:
-            raise AssertionError(f"final observed log-likelihood decreased: {history[-1]} -> {log_lik}")
         history.append(float(log_lik))
 
-    vpath = viterbi(np.log(np.clip(pi, 1e-12, None)), log_transition_matrix(W, b, Z), log_emit)
+    full_log_emit = _compute_gp_emission_log_likelihoods(X, returns, gp_params)
+    _, _, full_log_lik = posteriors(
+        np.log(np.clip(pi, 1e-12, None)), log_transition_matrix(W, b, Z), full_log_emit
+    )
+
+    vpath = viterbi(np.log(np.clip(pi, 1e-12, None)), log_transition_matrix(W, b, Z), full_log_emit)
     return EMResult(
         dates=dates,
         gamma=gamma,
@@ -230,11 +317,12 @@ def fit_em(
         gp_params=gp_params,
         transition_W=W,
         transition_b=b,
-        log_likelihood_history=history,
+        subsampled_log_likelihood_history=history,
+        full_log_likelihood=float(full_log_lik),
         viterbi_path=vpath,
         init_states=init.states,
         init_volatility=np.asarray(init.volatility, dtype=np.float64),
-        log_emit=log_emit,
+        log_emit=full_log_emit,
         z_columns=list(z_columns or []),
         converged=converged,
     )

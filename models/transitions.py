@@ -68,7 +68,9 @@ def fit_logistic_weighted(Z: np.ndarray, xi: np.ndarray,
                           K: int | None = None, M: int | None = None,
                           l2: float = 1e-4,
                           n_restarts: int = 2,
-                          seed: int = 0) -> tuple[np.ndarray, np.ndarray]:
+                          seed: int = 0,
+                          init_Wb: tuple[np.ndarray, np.ndarray] | None = None
+                          ) -> tuple[np.ndarray, np.ndarray]:
     """Maximum-weighted-likelihood fit of logistic transitions.
 
     Z: (T, M) macro covariates (use z_t to drive transitions into t; the t-th
@@ -84,7 +86,10 @@ def fit_logistic_weighted(Z: np.ndarray, xi: np.ndarray,
 
     rng = np.random.default_rng(seed)
     n_params = K * (K - 1) * M + K * (K - 1)
-    inits = [np.zeros(n_params)]
+    inits: list[np.ndarray] = []
+    if init_Wb is not None:
+        inits.append(_pack(init_Wb[0], init_Wb[1], K, M))
+    inits.append(np.zeros(n_params))
     for _ in range(n_restarts):
         inits.append(rng.normal(0.0, 0.1, size=n_params))
 

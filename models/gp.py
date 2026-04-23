@@ -178,7 +178,6 @@ def fit_gp_hyperparameters(
     data_scaled = [(X_t / feature_scale, y_t.astype(np.float64)) for X_t, y_t in data]
     response_scale = _pooled_response_scale(data_scaled, weights)
     empirical_ls = _empirical_lengthscale_seed(data_scaled, D)
-    active = max(int((weights > 0).sum()), 1)
 
     rng = np.random.default_rng(seed)
     inits: list[np.ndarray] = []
@@ -190,24 +189,24 @@ def fit_gp_hyperparameters(
     )
     signal_ref = max(0.85 * response_scale, 1e-3)
     noise_ref = max(0.10 * response_scale, 1e-4)
+    # Prior weights are frozen (not scaled by number of active months) so the
+    # regularizer does not strengthen as the rolling training window grows.
+    # Centers are in *std* units (log σ_f, log σ_n), matching `pack()`.
     prior = {
         "lengthscale_center": np.log(np.clip(empirical_ls, 1e-3, 1e3)),
         "lengthscale_scale": np.full(D, 1.0),
-        "lengthscale_weight": 0.05 * active,
+        "lengthscale_weight": 1.0,
         "signal_center": float(np.log(signal_ref)),
         "signal_scale": 1.25,
-        "signal_weight": 0.05 * active,
+        "signal_weight": 1.0,
         "noise_center": float(np.log(noise_ref)),
         "noise_scale": 0.75,
-        "noise_weight": 0.25 * active,
+        "noise_weight": 5.0,
     }
 
     seed_params = [
         base,
-        GPHyperparams(lengthscales=np.ones(D), signal_var=signal_ref ** 2, noise_var=noise_ref ** 2),
         GPHyperparams(lengthscales=empirical_ls, signal_var=signal_ref ** 2, noise_var=noise_ref ** 2),
-        GPHyperparams(lengthscales=0.5 * empirical_ls, signal_var=(0.75 * signal_ref) ** 2, noise_var=(0.5 * noise_ref) ** 2),
-        GPHyperparams(lengthscales=1.5 * empirical_ls, signal_var=(1.25 * signal_ref) ** 2, noise_var=(1.5 * noise_ref) ** 2),
     ]
     for hp0 in seed_params:
         inits.append(hp0.pack())
@@ -226,7 +225,7 @@ def fit_gp_hyperparameters(
             res = minimize(
                 _neg_log_lik_weighted, v0, args=(D, data_scaled, weights, prior),
                 method="L-BFGS-B", bounds=bounds,
-                options={"maxiter": 200, "gtol": 1e-5, "ftol": 1e-8},
+                options={"maxiter": 50, "gtol": 1e-4, "ftol": 1e-7},
             )
             if np.isfinite(res.fun) and res.fun < best_f:
                 best_f = float(res.fun)

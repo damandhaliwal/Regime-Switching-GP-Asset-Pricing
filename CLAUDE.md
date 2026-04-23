@@ -8,10 +8,10 @@ Reference guide for the regime-switching Gaussian process project on cross-secti
 
 *(update this line every working session)*
 
-- E-step: not yet implemented
-- M-step: not yet implemented
-- Toy tests: not yet written
-- Real data: Stage 1 (raw → parquet) complete. Stage 2 (characteristic panel + preprocessing) complete on full CCM universe — `panel.pickle` has T=300, D=10, mean N_t≈7100, X ∈ [−0.5, 0.5]. S&P 500 point-in-time filter and macro Z still pending (both dormant behind file-existence switches).
+- E-step: implemented in `inference/em.py` (log-space forward-backward with GP emissions)
+- M-step: implemented in `inference/em.py` (weighted GP hyperparameters + logistic transitions)
+- Toy tests: `toy_gp`, `toy_hmm`, `toy_transitions`, and `toy_integrated` implemented and passing
+- Real data: Stage 1 (raw → parquet), Stage 2 (S&P 500 point-in-time panel + panel-aligned macro `Z`) complete. `panel.pickle` now has T=300, D=10, mean N_t≈470 on the S&P-filtered universe; `rsgp.data.load_aligned_panel()` trims the fully observed estimation window to 2000-03..2024-12.
 - Python module for Stage 2 lives under `rsgp/` rather than `data/` — macOS case-insensitive FS collides with the `Data/` artifact dir.
 
 ---

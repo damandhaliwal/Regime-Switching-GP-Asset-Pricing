@@ -67,6 +67,12 @@ def initialize_from_volatility_proxy(
 
 
 def _load_sp500_volatility(dates: Sequence, index_path: Path = INDEX_PATH) -> np.ndarray:
+    """Rolling 3-month std of the S&P 500 return series, aligned to `dates`.
+
+    `sp500_index.parquet` stores daily `sprtrn`. Aggregate to monthly arithmetic
+    return first, then take the 3-month rolling std; joining the *daily* frame
+    to monthly dates fans rows out and corrupts the proxy.
+    """
     if not index_path.exists():
         raise FileNotFoundError(f"{index_path} not found")
     date_df = (
@@ -78,24 +84,36 @@ def _load_sp500_volatility(dates: Sequence, index_path: Path = INDEX_PATH) -> np
         )
         .sort("date")
     )
-    index_df = (
+    monthly = (
         pl.read_parquet(index_path)
         .select(pl.col("caldt").alias("date"), "sprtrn")
-        .sort("date")
         .with_columns(
-            pl.col("sprtrn").rolling_std(window_size=3, min_samples=3).alias("volatility"),
             pl.col("date").dt.year().alias("_year"),
             pl.col("date").dt.month().alias("_month"),
+            (pl.col("sprtrn").cast(pl.Float64) + 1.0).log().alias("_log1p"),
+        )
+        .group_by(["_year", "_month"])
+        .agg(pl.col("_log1p").sum().alias("_log_ret"))
+        .sort(["_year", "_month"])
+        .with_columns((pl.col("_log_ret").exp() - 1.0).alias("_monthly_ret"))
+        .with_columns(
+            pl.col("_monthly_ret")
+            .rolling_std(window_size=3, min_samples=3)
+            .alias("volatility")
         )
         .select(["_year", "_month", "volatility"])
     )
     aligned = (
-        date_df.join(index_df, on=["_year", "_month"], how="left")
+        date_df.join(monthly, on=["_year", "_month"], how="left")
         .with_columns(pl.col("volatility").fill_null(strategy="forward").fill_null(strategy="backward"))
         .sort("date")
     )
     if aligned["volatility"].null_count():
         raise ValueError("volatility proxy still contains nulls after fill")
+    if aligned.height != len(list(dates)):
+        raise ValueError(
+            f"volatility proxy length {aligned.height} does not match dates length {len(list(dates))}"
+        )
     return aligned["volatility"].to_numpy().astype(np.float64)
 
 

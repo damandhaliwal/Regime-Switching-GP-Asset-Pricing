@@ -6,8 +6,13 @@ import json
 import pickle
 from dataclasses import asdict
 from pathlib import Path
+import sys
 
 import pandas as pd
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from inference.em import DEFAULT_MACRO_COLS, EMConfig, fit_em, predict_next_month
 from rsgp.data import load_aligned_panel
@@ -42,6 +47,7 @@ def main() -> None:
     parser.add_argument("--gp-restarts", type=int, default=2)
     parser.add_argument("--transition-restarts", type=int, default=2)
     parser.add_argument("--max-prediction-points", type=int, default=800)
+    parser.add_argument("--max-monthly-points", type=int, default=200)
     args = parser.parse_args()
 
     aligned = load_aligned_panel(required_macro_cols=DEFAULT_MACRO_COLS)
@@ -56,12 +62,15 @@ def main() -> None:
         gp_restarts=args.gp_restarts,
         transition_restarts=args.transition_restarts,
         max_prediction_points=args.max_prediction_points,
+        max_monthly_points=args.max_monthly_points,
         min_regime_mass=5.0,
+        strict_monotone=False,
     )
 
     prediction_rows = []
     regime_rows = []
     param_history = []
+    prev_result = None
 
     for t in range(oos_start_idx, oos_end_idx):
         result = fit_em(
@@ -71,7 +80,9 @@ def main() -> None:
             Z=aligned.Z[:t],
             config=config,
             z_columns=aligned.z_columns,
+            warm_start=prev_result,
         )
+        prev_result = result
         pred = predict_next_month(
             result=result,
             train_X=aligned.X[:t],
@@ -104,9 +115,12 @@ def main() -> None:
             "date": date,
             "train_end_date": train_end,
             "train_state": int(result.viterbi_path[-1]),
+            "viterbi_state": int(result.viterbi_path[-1]),
             "predicted_state": int(pred["next_regime_probs"].argmax()),
             "converged": bool(result.converged),
-            "log_likelihood": float(result.log_likelihood_history[-1]),
+            "full_log_likelihood": float(result.full_log_likelihood),
+            "subsampled_log_likelihood": float(result.subsampled_log_likelihood_history[-1]),
+            "n_em_iters": len(result.subsampled_log_likelihood_history),
         }
         for k, prob in enumerate(pred["next_regime_probs"]):
             regime_row[f"next_prob_{k}"] = float(prob)
@@ -121,13 +135,16 @@ def main() -> None:
                 "gp_params": _serialize_gp_params(result.gp_params),
                 "transition_W": result.transition_W.copy(),
                 "transition_b": result.transition_b.copy(),
-                "log_likelihood_history": list(result.log_likelihood_history),
+                "subsampled_log_likelihood_history": list(result.subsampled_log_likelihood_history),
+                "full_log_likelihood": float(result.full_log_likelihood),
             }
         )
         print(
             f"{date.date()} train_end={train_end.date()} "
+            f"viterbi={regime_row['viterbi_state']} "
             f"pred_state={regime_row['predicted_state']} "
-            f"loglik={regime_row['log_likelihood']:.2f}"
+            f"full_ll={regime_row['full_log_likelihood']:.2f} "
+            f"iters={regime_row['n_em_iters']}"
         )
 
     pd.DataFrame(prediction_rows).to_parquet(output_dir / "predictions.parquet", index=False)

@@ -33,12 +33,16 @@ def fama_macbeth_predict(
     train_returns: Sequence[np.ndarray],
     test_X: np.ndarray,
 ) -> np.ndarray:
-    betas = []
+    """Monthly cross-sectional OLS of returns on (1, X), averaged over months."""
+    coefs = []
     for X_t, y_t in zip(train_X, train_returns):
-        beta, *_ = np.linalg.lstsq(X_t, y_t, rcond=None)
-        betas.append(beta)
-    beta_bar = np.mean(np.vstack(betas), axis=0)
-    return (test_X @ beta_bar).astype(np.float32)
+        X_aug = np.column_stack([np.ones(X_t.shape[0]), X_t])
+        coef, *_ = np.linalg.lstsq(X_aug, y_t, rcond=None)
+        coefs.append(coef)
+    coef_bar = np.mean(np.vstack(coefs), axis=0)
+    alpha = coef_bar[0]
+    beta = coef_bar[1:]
+    return (alpha + test_X @ beta).astype(np.float32)
 
 
 def single_regime_gp_predict(
@@ -94,11 +98,13 @@ def random_forest_predict(
 def run_baselines_rolling(
     aligned: AlignedPanel,
     oos_start_idx: int,
+    oos_end_idx: int | None = None,
     gp_max_points: int = 800,
     rf_random_state: int = 0,
 ) -> pd.DataFrame:
     rows = []
-    for t in range(oos_start_idx, len(aligned.dates)):
+    oos_end_idx = len(aligned.dates) if oos_end_idx is None else oos_end_idx
+    for t in range(oos_start_idx, oos_end_idx):
         train_X = aligned.X[:t]
         train_returns = aligned.returns[:t]
         test_X = aligned.X[t]

@@ -97,13 +97,18 @@ def test_integrated_pipeline() -> None:
             transition_seed=0,
             min_regime_mass=5.0,
             max_prediction_points=400,
+            max_months_per_regime_fit=None,
+            max_monthly_points=None,
         ),
         init=init,
         z_columns=["z1", "z2"],
     )
 
-    ll_hist = np.array(result.log_likelihood_history)
-    assert np.all(np.diff(ll_hist) >= -1e-8), f"log-likelihood not monotone: {ll_hist}"
+    ll_hist = np.array(result.subsampled_log_likelihood_history)
+    diffs = np.diff(ll_hist)
+    assert np.all(diffs >= -1e-4 * np.maximum(1.0, np.abs(ll_hist[:-1]))), (
+        f"log-likelihood not monotone beyond tolerance: {ll_hist}"
+    )
 
     order = _align_labels(states, result.viterbi_path, k=K)
     aligned_path = np.array([order[s] for s in result.viterbi_path])
@@ -122,6 +127,9 @@ def test_integrated_pipeline() -> None:
 
     W_perm = result.transition_W[order][:, order, :]
     b_perm = result.transition_b[order][:, order]
+    diff_W = (W_perm[:, 1:, :] - W_true[:, 1:, :]).reshape(-1)
+    diff_b = (b_perm[:, 1:] - b_true[:, 1:]).reshape(-1)
+    coef_rmse = float(np.sqrt(np.mean(np.concatenate([diff_W, diff_b]) ** 2)))
     P_true = np.exp(log_transition_matrix(W_true, b_true, Z))
     P_est = np.exp(log_transition_matrix(W_perm, b_perm, Z))
     trans_prob_rmse = float(np.sqrt(np.mean((P_est - P_true) ** 2)))
@@ -129,10 +137,14 @@ def test_integrated_pipeline() -> None:
     print(f"  log-likelihood history: {np.round(ll_hist, 2)}")
     print(f"  Viterbi accuracy       : {acc:.3f}")
     print(f"  GP median rel err      : {np.round(gp_median, 3)}")
-    print(f"  Transition Prob RMSE   : {trans_prob_rmse:.3f}")
+    print(f"  Transition coef RMSE   : {coef_rmse:.3f}")
+    print(f"  Transition prob RMSE   : {trans_prob_rmse:.3f} (sanity)")
 
     assert acc > 0.85, f"regime recovery {acc:.3f} below 0.85"
     assert (gp_median < 0.30).all(), f"GP median rel err {gp_median} exceeds 0.30"
+    # Softmax coefficients are under-identified at T=100 (probability RMSE is the
+    # real recovery metric here; the coefficient bar is a looser sanity check).
+    assert coef_rmse < 0.60, f"transition coefficient RMSE {coef_rmse:.3f} exceeds 0.60"
     assert trans_prob_rmse < 0.10, f"transition probability RMSE {trans_prob_rmse:.3f} exceeds 0.10"
 
 

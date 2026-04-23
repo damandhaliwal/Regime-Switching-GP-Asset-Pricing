@@ -4,12 +4,17 @@ from __future__ import annotations
 import argparse
 import pickle
 from pathlib import Path
+import sys
 
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from eval.baselines import run_baselines_rolling
 from eval.metrics import (
@@ -53,8 +58,9 @@ def _table1(
     baselines: pd.DataFrame,
 ) -> pd.DataFrame:
     rows = []
+    regime_col = "viterbi_state" if "viterbi_state" in regimes.columns else "predicted_state"
     main_actual, main_pred, _ = _group_monthly_arrays(main_predictions, "prediction")
-    states = regimes.sort_values("date")["predicted_state"].to_numpy(dtype=np.int32)
+    states = regimes.sort_values("date")[regime_col].to_numpy(dtype=np.int32)
     main_regime = regime_conditional_oos_r2(main_actual, main_pred, states)
     rows.append({
         "model": "RSGP",
@@ -63,14 +69,14 @@ def _table1(
         "regime_1_r2": main_regime.get(1, np.nan),
     })
 
-    state_map = regimes[["date", "predicted_state"]].copy()
+    state_map = regimes[["date", regime_col]].copy()
     for model, group in baselines.groupby("model"):
         merged = group.merge(state_map, on="date", how="left")
         actual, pred, dates = _group_monthly_arrays(merged, "prediction")
         states_model = (
-            merged[["date", "predicted_state"]]
+            merged[["date", regime_col]]
             .drop_duplicates()
-            .sort_values("date")["predicted_state"]
+            .sort_values("date")[regime_col]
             .to_numpy(dtype=np.int32)
         )
         reg = regime_conditional_oos_r2(actual, pred, states_model)
@@ -102,12 +108,13 @@ def _table2(
     baselines: pd.DataFrame,
 ) -> pd.DataFrame:
     rows = []
+    regime_col = "viterbi_state" if "viterbi_state" in regimes.columns else "predicted_state"
     main_portfolio = decile_long_short_from_frame(main_predictions)
     rows.append(_portfolio_summary("RSGP", main_portfolio))
 
-    merged_main = main_portfolio.merge(regimes[["date", "predicted_state"]], on="date", how="left")
-    for regime in sorted(merged_main["predicted_state"].dropna().unique()):
-        rows.append(_portfolio_summary(f"RSGP (Regime {int(regime)})", merged_main[merged_main["predicted_state"] == regime]))
+    merged_main = main_portfolio.merge(regimes[["date", regime_col]], on="date", how="left")
+    for regime in sorted(merged_main[regime_col].dropna().unique()):
+        rows.append(_portfolio_summary(f"RSGP (Regime {int(regime)})", merged_main[merged_main[regime_col] == regime]))
 
     for model, group in baselines.groupby("model"):
         rows.append(_portfolio_summary(model, decile_long_short_from_frame(group)))
@@ -116,8 +123,23 @@ def _table2(
 
 def _save_table(df: pd.DataFrame, out_base: Path) -> None:
     df.to_csv(out_base.with_suffix(".csv"), index=False)
+    lines = []
+    lines.append("\\begin{tabular}{" + "l" * len(df.columns) + "}")
+    lines.append("\\hline")
+    lines.append(" & ".join(df.columns) + " \\\\")
+    lines.append("\\hline")
+    for row in df.itertuples(index=False):
+        vals = []
+        for val in row:
+            if isinstance(val, (float, np.floating)):
+                vals.append(f"{val:.4f}")
+            else:
+                vals.append(str(val))
+        lines.append(" & ".join(vals) + " \\\\")
+    lines.append("\\hline")
+    lines.append("\\end{tabular}")
     with open(out_base.with_suffix(".tex"), "w") as f:
-        f.write(df.to_latex(index=False, float_format=lambda x: f"{x:.4f}"))
+        f.write("\n".join(lines))
 
 
 def _figure_lengthscales(param_history: list[dict], out_path: Path) -> None:
@@ -180,7 +202,12 @@ def main() -> None:
     else:
         aligned = load_aligned_panel(required_macro_cols=DEFAULT_MACRO_COLS)
         oos_start_idx = _year_month_index(aligned.dates, args.oos_start)
-        baselines = run_baselines_rolling(aligned, oos_start_idx=oos_start_idx)
+        end_date = pd.to_datetime(main_predictions["date"]).max()
+        oos_end_idx = next(
+            idx + 1 for idx, date in enumerate(aligned.dates)
+            if date.year == end_date.year and date.month == end_date.month
+        )
+        baselines = run_baselines_rolling(aligned, oos_start_idx=oos_start_idx, oos_end_idx=oos_end_idx)
         baselines.to_parquet(baselines_path, index=False)
 
     table1 = _table1(main_predictions, regimes, baselines)

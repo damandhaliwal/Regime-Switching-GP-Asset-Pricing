@@ -2,6 +2,13 @@
 
 Idempotent. Run after any refresh of Data/parquet/*.
 """
+from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 from rsgp.characteristics import build_char_panel
 from rsgp.preprocess import build_and_save
 from rsgp.macro import build_macro_panel
