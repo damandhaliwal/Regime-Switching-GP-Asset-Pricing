@@ -1,0 +1,7 @@
+/Data/
+__pycache__/
+*.pyc
+.DS_Store
+%OUTDIR%/
+*.pdf
+Claude Deep Dive
