@@ -1,0 +1,13 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\citeauthoryear{Fama and MacBeth}{Fama and MacBeth}{1973}]{fama_risk_1973}
+Fama, E.~F. and J.~D. MacBeth (1973).
+\newblock Risk, {Return}, and {Equilibrium}: {Empirical} {Tests}.
+\newblock {\em Journal of Political Economy\/}~{\em 81\/}(3), 607--636.
+
+\bibitem[\protect\citeauthoryear{Gu, Kelly, and Xiu}{Gu et~al.}{2020}]{gu_empirical_2020}
+Gu, S., B.~Kelly, and D.~Xiu (2020, May).
+\newblock Empirical {Asset} {Pricing} via {Machine} {Learning}.
+\newblock {\em The Review of Financial Studies\/}~{\em 33\/}(5), 2223--2273.
+
+\end{thebibliography}

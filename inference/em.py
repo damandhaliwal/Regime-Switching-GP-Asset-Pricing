@@ -20,21 +20,21 @@ DEFAULT_MACRO_COLS = ["vix_lag1", "vix_chg_lag1", "credit_spread_lag1", "term_sp
 @dataclass
 class EMConfig:
     K: int = 2
-    max_iter: int = 100
-    tol: float = 1e-5
-    patience: int = 3
-    gp_restarts: int = 4
+    max_iter: int = 8
+    tol: float = 1e-4
+    patience: int = 2
+    gp_restarts: int = 0
     gp_seed: int = 0
-    transition_restarts: int = 2
+    transition_restarts: int = 1
     transition_seed: int = 0
     transition_l2: float = 1e-4
     min_regime_mass: float = 1.0
-    max_prediction_points: int = 800
+    max_prediction_points: int = 600
     max_monthly_points: int | None = 100
     max_months_per_regime_fit: int | None = 25
     strict_monotone: bool = False
     monotone_rel_tol: float = 1e-6
-    warm_start_max_iter: int | None = 10
+    warm_start_max_iter: int | None = 3
 
 
 @dataclass

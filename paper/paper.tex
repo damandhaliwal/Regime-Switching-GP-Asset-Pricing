@@ -7,6 +7,7 @@
 \usepackage[left=1in,right=1in,bottom=1in]{geometry}
 \usepackage{setspace}
 \usepackage{amsmath}
+\usepackage{amssymb}
 
 \setlength{\droptitle}{-7em}
 \setstretch{1.2}
@@ -52,11 +53,43 @@
 \section{Introduction}
 The cross-section of expected stock returns involves modelling the returns of a large number of stocks at a given point in time. The central question in empirical finance is to understand why some stocks earns higher returns than others. This is modelled by the relationship between the expected stock returns and the relationship between firm characteristics such as size, value, momentum, and profitability; however, there are two specific challenges that arise when modelling this. 
 
-First, 
+First, the functional form of this relationship is unknown and likely non-linear. \cite{fama_risk_1973} proposed a linear regression model to explain the cross-section of expected returns, but more recently \cite{gu_empirical_2020} showed that non-linearity and interactions among characteristics matter substantially. This matters because a misspecified functional form masks economically important threshold effects, interactions, and hetergeneity across firms, leading to a distorted view of the underlying economic mechanisms. Second, the relationship between characteristics and expected returns is unlikely to be stable over tyime. Characteristics that are rewarded in one market environment may become far less informative in another, especially during episodes of heightened volatility or macroeconomic stress. 
 
+These challenges motivate a model that can accommodate both non-linear pricing relations and time variation in those relations. A probabilistic model is appealing in this setting because the return prediction task is inherently uncertain, and it supports economic interpretation. In asset pricing, researchers are often interested in not just in point forecasts, but in how confidently particular characteristics are priced and how likely the market is to be in one regime rather than another. By modelling both the pricing function and the latent state probabilistically, this framework yields interpretable regime probabilities and regime-specific characteristic relevance rather than a single black box prediction. 
+
+To address these challenges, I propose a new asset pricing model that uses a Hidden Markov Model (HMM) with non-homogeneous transition probabilities to capture the latent regime underlying the pricing function, and a Gaussian Process (GP) to non-parametrically learn the relationship between characteristics and expected returns within each regime. 
+
+The paper's contribution is incremental but substantive. Rather than proposing an entirely new model, it extens existing strands of the literature by integrating regime-switching dynamic, Gaussian process based non-linear pricing, and covariate-driven state transitions within a unified framework of cross-sectional stock return prediction. Prior work has general considered these elements in isolation or in different empirical settings. The proposed model is designed to study whether the mapping from firm characteristics to expected returns is not only non-linear but also state dependent in a way that it moves in conjunction with observable macroeconomic conditions. The integration of these three models yields a framework that is more flexible than standard single-regime asset pricing models and more economically interpretable than purely static black-box prediction methods. 
 \section{Model Overview}
+The model combines three components. First, a latent regime $s_t \in \{1, \dots, K\}$ captures the market state at time t. Second, the transition probabilities across regimes depend on observable macroeconomic covariates $z_t$ allowing regime shifts to vary with economic conditions. Third, conditionl on regime $s_t = k$, expected stock returns are models as a regime-specfic Gaussian process $f_k(x_{i,t})$ where $x_{i,t}$ are the characteristics of stock i at time t. Observed returns are noisy realizations around this pricing function. This structure allows the characteristics to return mapping to be both nonlinear and regime-dependent while linking changes in that mapping to observable macroeconomic conditions. The model is designed to replicate human intuition about how the importance of different characteristics may vary across market environments, and to provide a flexible yet interpretable framework for understanding the cross-section of expected returns.
+
+[INSERT FIGURE HERE]
+
 \section{Regime-Switching Gaussian Process Asset Pricing Model}
+Let $r_{i,t+1}$ denote the excess return of stock $i$ from period $t$ to $t+1$, where $i=1,\dots,N_t$ indexes firms in the cross-section and $t=1,\dots,T$ indexes time. Let $x_{i,t} \in \mathbb{R}^p$ denote a vector of firm characteristics observed at time $t$, and let $z_t\in\mathbb{R}^m$ denote a vector of observable macroeconomic covariates. The central object of interest is the mapping from firm characteristics to expected returns. To allow this mapping to vary across market environments, we introduce a latent regime variable $s_t \in \{1,\dots,K\}$, where $K$ is the number of regimes.
+
+Conditional on regime $s_t=k$, the return of stock i is modeled as 
+
+$$r_{i,t+1} = f_k(x_{i,t}) + \varepsilon_{i,t+1}, \qquad \varepsilon_{i,t+1} \sim \mathcal{N}(0,\sigma_k^2)$$
+where $f_k(\cdot)$ is a regime-specific pricing function and $\sigma_k^2$ is the regime-specific noise variance. This specification allows the cross-sectional relation between characteristics and expected returns to differ across latent market states.
+
+To model $f_k(\cdot)$ flexibly, each regime-specific pricing function is assigned a Gaussian process prior:
+$$f_k(\cdot) \sim \mathcal{GP}(0, \kappa_k(\cdot, \cdot)), \qquad k = 1, \dots, K$$
+where $\kappa_k(\cdot, \cdot)$ is the regime-specific covariance kernel. This pricing function is able to capture nonlinearities and interactions among characteristics of a stock without imposing a specific functional form. In particular, we use an automatic relevance determination (ARD) kernel so that each characteristic may have a sdifferent length scale in each regime. This also ensures that the importance of given characteristic varies across variables and market states.
+
+$s_t$, the latent regime variable, follows a first-order non-homogeneous Hidden Markov process. This approach was chosen over constant transition probabilities because it allows the likelihood of switching between regimes to depend on observable market conditions, replicating human behavior. Specifically, the probability of moving from regime $k$ at time $t-1$ to regime $j$ at time $t$ is given by:
+
+$$P(s_t = j | s_{t-1} = k, z_{t-1}) = \frac{\text{exp}(\alpha_{kj} + z_{t-1}^\top \beta_{kj})}{\sum_{l=1}^K \text{exp}(\alpha_{kl} + z_{t-1}^\top \beta_{kl})}$$
+where $\alpha_{kj}$ is a regime transition intercept and $\beta_{kj}$ captures how the macroeconomic covariates influence the likelihood of transitioning from regime $k$ to regime $j$. This specification allows the model to learn how changes in economic conditions affect the probability of being in different market regimes, which in turn affects the pricing function.
+
+Inference uses a two-stage Expectation-Maximization (EM) algorithm. In the E-step, we run a forward-backward algorithm on the HMM using the GP marginal likelihood $p(r_t | s_t = k) = \mathcal{N}(r_t |0, K_k + \sigma_k^2 I)$ as the emission probability. Here, the function $f$ is marginalized out at each time step. The regime defines a distribution over the pricing functions through its hyperparameters and this preserves the conditional independence required by the forward-backward algorithm of HMM.
+
+In the M-step, model parameters are updated using the posterior regime probabilities as weights. Time periods that are more likely in regime $k$ have more influence on reigme $k$'s GP hyperparameters. Transition coefficients are updated the same way. This produces probabilistic estimates of both the latent market state and the regime-dependent characteristic to stock return mapping. 
+
+This framework has been designed to address three empirical features of cross-section of stock returns in a unified way: non-linear dependence on firm characteristics, instability in the pricing relation over time, and systematic variation and regime shifts with macroeconomic conditions relative to a single regime asset pricing model. It therefore allows greater flexibility in the pricing function and a more explicit representation of time variation.
+
 \section{Data and Evaluation Design}
+
 \section{Results}
 \section{Related Work}
 \section{Limitations}

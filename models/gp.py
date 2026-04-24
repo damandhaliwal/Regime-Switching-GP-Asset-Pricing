@@ -18,7 +18,8 @@ from typing import Sequence
 
 import numpy as np
 from scipy.linalg import cho_factor, cho_solve
-from scipy.optimize import minimize
+
+from models.gp_jax import fit_gp_hyperparameters_jax
 
 JITTER_BASE = 1e-6
 JITTER_STEPS = (1.0, 10.0, 100.0, 1000.0)  # multiplied by JITTER_BASE
@@ -204,10 +205,7 @@ def fit_gp_hyperparameters(
         "noise_weight": 5.0,
     }
 
-    seed_params = [
-        base,
-        GPHyperparams(lengthscales=empirical_ls, signal_var=signal_ref ** 2, noise_var=noise_ref ** 2),
-    ]
+    seed_params = [base]
     for hp0 in seed_params:
         inits.append(hp0.pack())
     for _ in range(n_restarts):
@@ -215,26 +213,22 @@ def fit_gp_hyperparameters(
         v = center + rng.normal(0.0, 0.35, size=D + 2)
         inits.append(v)
 
-    best_v: np.ndarray | None = None
-    best_f = np.inf
-    best_restart = -1
     # Sensible box on log-space: lengthscales in [1e-2, 1e2], stds in [1e-4, 1e2].
     bounds = [(np.log(1e-2), np.log(1e2))] * D + [(np.log(1e-4), np.log(1e2))] * 2
-    for idx, v0 in enumerate(inits):
-        try:
-            res = minimize(
-                _neg_log_lik_weighted, v0, args=(D, data_scaled, weights, prior),
-                method="L-BFGS-B", bounds=bounds,
-                options={"maxiter": 50, "gtol": 1e-4, "ftol": 1e-7},
-            )
-            if np.isfinite(res.fun) and res.fun < best_f:
-                best_f = float(res.fun)
-                best_v = res.x
-                best_restart = idx
-        except Exception:  # pragma: no cover — defensive; minimize failing here means init is pathological
-            continue
 
-    if best_v is None:
+    best_v, best_f = fit_gp_hyperparameters_jax(
+        data=data,
+        weights=weights,
+        D=D,
+        init_log_params=inits[0],
+        other_inits_log_params=inits[1:],
+        prior=prior,
+        bounds=bounds,
+        feature_scale=feature_scale,
+    )
+    best_restart = -1  # JAX backend reports only the winning restart's loss
+
+    if not np.isfinite(best_f):
         # Fall back to the base init unchanged.
         fallback = GPHyperparams(
             lengthscales=base.lengthscales * feature_scale,

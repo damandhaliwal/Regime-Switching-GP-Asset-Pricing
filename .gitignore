@@ -5,3 +5,11 @@ __pycache__/
 %OUTDIR%/
 *.pdf
 Claude Deep Dive
+
+# Heavy per-run artifacts (predictions, regimes, param history). Only the
+# summary tables and figures are tracked.
+/output/real/
+/output/real_*/
+/output/runtime_bench*/
+/output/tables_smoke_small/
+/output/figures_smoke_small/

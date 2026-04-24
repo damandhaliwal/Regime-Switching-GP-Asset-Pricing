@@ -10,3 +10,11 @@ dependencies:
   - numpy
   - scipy
   - scikit-learn
+  - pip
+  - pip:
+      # M-step GP marginal-LL on JAX (JIT + autodiff + batched Cholesky).
+      # Metal plugin (jax-metal) pairs with jax 0.4.26 but lacks Cholesky;
+      # CPU JAX is the supported path. If a future jax-metal supports
+      # Cholesky, also install jax-metal alongside matching jax/jaxlib.
+      - jax==0.4.26
+      - jaxlib==0.4.26

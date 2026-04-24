@@ -52,15 +52,22 @@ def single_regime_gp_predict(
     max_points: int = 800,
     seed: int = 0,
 ) -> tuple[np.ndarray, dict[str, object]]:
+    """Pool all training months into one dataset, subsample, fit and predict.
+
+    Single-regime GP treats the full training history as one i.i.d. sample, so
+    a per-month weighted fit (T Cholesky's per L-BFGS eval) is wasted work.
+    Sub-sampling once to `max_points` rows caps O(N^3) cost and is consistent
+    with the prediction subset used downstream.
+    """
+    X_sub, y_sub = _sample_training_subset(train_X, train_returns, max_points=max_points, seed=seed)
     hp, _ = fit_gp_hyperparameters(
-        data=list(zip(train_X, train_returns)),
-        weights=np.ones(len(train_X)),
+        data=[(X_sub, y_sub)],
+        weights=np.ones(1),
         D=test_X.shape[1],
-        n_restarts=2,
+        n_restarts=0,
         init=GPHyperparams(lengthscales=np.ones(test_X.shape[1]), signal_var=1.0, noise_var=0.1),
         seed=seed,
     )
-    X_sub, y_sub = _sample_training_subset(train_X, train_returns, max_points=max_points, seed=seed)
     mean, var = predict(X_sub, y_sub, test_X, hp)
     return mean.astype(np.float32), {"hp": hp, "train_points": len(y_sub), "var": var.astype(np.float32)}
 
