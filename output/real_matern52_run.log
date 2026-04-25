@@ -1,0 +1,494 @@
+dispatching 180 OOS months across 8 workers
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 24705.628513 -> 24693.586758
+  result = fit_em(
+[  1/180] 2010-05-28 viterbi=0 iters=2 fit=250.5s  elapsed=251s  eta=45008s  (1%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 24528.418252 -> 24517.004611
+  result = fit_em(
+[  2/180] 2010-04-30 viterbi=0 iters=2 fit=254.5s  elapsed=255s  eta=22724s  (1%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 23728.001024 -> 23713.632981
+  result = fit_em(
+[  3/180] 2010-01-29 viterbi=0 iters=2 fit=256.3s  elapsed=257s  eta=15169s  (2%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 24221.872603 -> 24211.463721
+  result = fit_em(
+[  4/180] 2010-03-31 viterbi=0 iters=2 fit=260.3s  elapsed=261s  eta=11494s  (2%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 23988.549437 -> 23978.698781
+  result = fit_em(
+[  5/180] 2010-02-26 viterbi=0 iters=2 fit=279.0s  elapsed=280s  eta=9796s  (3%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 25567.110010 -> 25560.410533
+  result = fit_em(
+[  6/180] 2010-08-31 viterbi=0 iters=3 fit=306.7s  elapsed=308s  eta=8920s  (3%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 25057.067352 -> 25052.802486
+  result = fit_em(
+[  7/180] 2010-06-30 viterbi=0 iters=3 fit=340.3s  elapsed=341s  eta=8433s  (4%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 25344.187417 -> 25338.305317
+  result = fit_em(
+[  8/180] 2010-07-30 viterbi=0 iters=3 fit=368.1s  elapsed=369s  eta=7933s  (4%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 27019.236627 -> 27007.471764
+  result = fit_em(
+[  9/180] 2011-02-28 viterbi=0 iters=2 fit=229.9s  elapsed=538s  eta=10213s  (5%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 25828.986850 -> 25815.246981
+  result = fit_em(
+[ 10/180] 2010-09-30 viterbi=0 iters=3 fit=292.7s  elapsed=544s  eta=9250s  (6%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 27299.284469 -> 27296.479607
+  result = fit_em(
+[ 11/180] 2011-03-31 viterbi=0 iters=2 fit=205.0s  elapsed=546s  eta=8392s  (6%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 26765.961407 -> 26755.482418
+  result = fit_em(
+[ 12/180] 2011-01-31 viterbi=0 iters=2 fit=268.6s  elapsed=548s  eta=7679s  (7%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 27594.307084 -> 27575.621444
+  result = fit_em(
+[ 13/180] 2011-04-29 viterbi=0 iters=2 fit=241.4s  elapsed=610s  eta=7841s  (7%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 26067.425446 -> 26061.449224
+  result = fit_em(
+[ 14/180] 2010-10-29 viterbi=0 iters=4 fit=446.8s  elapsed=702s  eta=8326s  (8%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 26333.321852 -> 26326.127055
+  result = fit_em(
+[ 15/180] 2010-11-30 viterbi=0 iters=4 fit=456.2s  elapsed=713s  eta=7847s  (8%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 26603.949550 -> 26600.830939
+  result = fit_em(
+[ 16/180] 2010-12-31 viterbi=0 iters=5 fit=500.5s  elapsed=762s  eta=7808s  (9%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 28076.587552 -> 28059.357479
+  result = fit_em(
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 28619.128520 -> 28613.206597
+  result = fit_em(
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 28384.735082 -> 28370.195245
+  result = fit_em(
+[ 17/180] 2011-06-30 viterbi=0 iters=2 fit=257.3s  elapsed=801s  eta=7684s  (9%)
+[ 18/180] 2011-08-31 viterbi=0 iters=2 fit=253.0s  elapsed=801s  eta=7213s  (10%)
+[ 19/180] 2011-07-29 viterbi=0 iters=2 fit=256.5s  elapsed=803s  eta=6802s  (11%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 27795.896575 -> 27795.818763
+  result = fit_em(
+[ 20/180] 2011-05-31 viterbi=0 iters=4 fit=398.0s  elapsed=935s  eta=7484s  (11%)
+[ 21/180] 2011-09-30 viterbi=0 iters=3 fit=325.9s  elapsed=936s  eta=7089s  (12%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 29021.491301 -> 28962.215520
+  result = fit_em(
+[ 22/180] 2011-10-31 viterbi=0 iters=2 fit=285.6s  elapsed=988s  eta=7094s  (12%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 29286.944429 -> 29278.078402
+  result = fit_em(
+[ 23/180] 2011-11-30 viterbi=0 iters=2 fit=292.6s  elapsed=1006s  eta=6867s  (13%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 30189.565525 -> 30141.104054
+  result = fit_em(
+[ 24/180] 2012-03-30 viterbi=0 iters=2 fit=273.8s  elapsed=1077s  eta=6998s  (13%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 29554.015022 -> 29552.861782
+  result = fit_em(
+[ 25/180] 2011-12-30 viterbi=0 iters=3 fit=347.1s  elapsed=1109s  eta=6875s  (14%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 30739.297671 -> 30686.922757
+  result = fit_em(
+[ 26/180] 2012-05-31 viterbi=0 iters=2 fit=242.2s  elapsed=1179s  eta=6980s  (14%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 30474.955750 -> 30411.623220
+  result = fit_em(
+[ 27/180] 2012-04-30 viterbi=0 iters=2 fit=265.1s  elapsed=1201s  eta=6803s  (15%)
+[ 28/180] 2012-02-29 viterbi=0 iters=4 fit=402.6s  elapsed=1204s  eta=6537s  (16%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 29827.186092 -> 29825.130214
+  result = fit_em(
+[ 29/180] 2012-01-31 viterbi=0 iters=4 fit=435.9s  elapsed=1237s  eta=6443s  (16%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 31301.106676 -> 31301.066748
+  result = fit_em(
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 31732.660150 -> 31707.525102
+  result = fit_em(
+[ 30/180] 2012-07-31 viterbi=0 iters=4 fit=386.9s  elapsed=1393s  eta=6965s  (17%)
+[ 31/180] 2012-09-28 viterbi=0 iters=2 fit=285.2s  elapsed=1394s  eta=6701s  (17%)
+[ 32/180] 2012-06-29 viterbi=0 iters=4 fit=407.7s  elapsed=1395s  eta=6454s  (18%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 31579.991092 -> 31578.161105
+  result = fit_em(
+[ 33/180] 2012-08-31 viterbi=0 iters=3 fit=339.8s  elapsed=1416s  eta=6309s  (18%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 32034.775220 -> 32017.558364
+  result = fit_em(
+[ 34/180] 2012-10-31 viterbi=0 iters=2 fit=274.6s  elapsed=1453s  eta=6240s  (19%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 32294.154751 -> 32258.800466
+  result = fit_em(
+[ 35/180] 2012-11-30 viterbi=0 iters=2 fit=292.0s  elapsed=1493s  eta=6183s  (19%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 32610.303247 -> 32603.542872
+  result = fit_em(
+[ 36/180] 2012-12-31 viterbi=0 iters=4 fit=432.3s  elapsed=1636s  eta=6546s  (20%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 32892.542592 -> 32890.993521
+  result = fit_em(
+[ 37/180] 2013-01-31 viterbi=0 iters=5 fit=474.7s  elapsed=1712s  eta=6617s  (21%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 33766.069573 -> 33753.811996
+  result = fit_em(
+[ 38/180] 2013-04-30 viterbi=0 iters=4 fit=420.8s  elapsed=1816s  eta=6787s  (21%)
+[ 39/180] 2013-02-28 viterbi=0 iters=5 fit=445.2s  elapsed=1838s  eta=6646s  (22%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 34042.814846 -> 34028.645800
+  result = fit_em(
+[ 40/180] 2013-05-31 viterbi=0 iters=4 fit=436.9s  elapsed=1853s  eta=6486s  (22%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 34345.336468 -> 34342.837800
+  result = fit_em(
+[ 41/180] 2013-06-28 viterbi=0 iters=4 fit=409.1s  elapsed=1862s  eta=6313s  (23%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 34649.764612 -> 34642.756508
+  result = fit_em(
+[ 42/180] 2013-07-31 viterbi=0 iters=4 fit=418.2s  elapsed=1911s  eta=6278s  (23%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 33447.717991 -> 33447.603101
+  result = fit_em(
+[ 43/180] 2013-03-28 viterbi=0 iters=9 fit=728.9s  elapsed=2123s  eta=6764s  (24%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 35264.770937 -> 35261.877464
+  result = fit_em(
+[ 44/180] 2013-09-30 viterbi=0 iters=4 fit=434.7s  elapsed=2147s  eta=6636s  (24%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 34932.270942 -> 34929.180116
+  result = fit_em(
+[ 45/180] 2013-08-30 viterbi=0 iters=6 fit=559.6s  elapsed=2196s  eta=6588s  (25%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 36073.039365 -> 36069.209748
+  result = fit_em(
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 36404.983339 -> 36400.610281
+  result = fit_em(
+[ 46/180] 2013-12-31 viterbi=0 iters=3 fit=375.6s  elapsed=2229s  eta=6493s  (26%)
+[ 47/180] 2014-01-31 viterbi=0 iters=3 fit=366.7s  elapsed=2229s  eta=6307s  (26%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 35487.896187 -> 35480.528856
+  result = fit_em(
+[ 48/180] 2013-10-31 viterbi=0 iters=4 fit=421.7s  elapsed=2238s  eta=6154s  (27%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 36707.908667 -> 36707.137653
+  result = fit_em(
+[ 49/180] 2014-02-28 viterbi=0 iters=3 fit=372.6s  elapsed=2283s  eta=6105s  (27%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 37007.520932 -> 37001.711201
+  result = fit_em(
+[ 50/180] 2014-03-31 viterbi=0 iters=3 fit=378.3s  elapsed=2501s  eta=6504s  (28%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 37331.670133 -> 37320.510456
+  result = fit_em(
+[ 51/180] 2014-04-30 viterbi=0 iters=3 fit=369.8s  elapsed=2517s  eta=6366s  (28%)
+[ 52/180] 2013-11-29 viterbi=0 iters=8 fit=716.2s  elapsed=2554s  eta=6288s  (29%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 37597.911788 -> 37579.116479
+  result = fit_em(
+[ 53/180] 2014-05-30 viterbi=0 iters=3 fit=366.2s  elapsed=2562s  eta=6140s  (29%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 38200.698528 -> 38164.294345
+  result = fit_em(
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 38444.930458 -> 38420.000619
+  result = fit_em(
+[ 54/180] 2014-07-31 viterbi=0 iters=3 fit=386.6s  elapsed=2616s  eta=6103s  (30%)
+[ 55/180] 2014-08-29 viterbi=0 iters=3 fit=377.9s  elapsed=2616s  eta=5945s  (31%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 37913.355882 -> 37877.996525
+  result = fit_em(
+[ 56/180] 2014-06-30 viterbi=0 iters=3 fit=397.6s  elapsed=2626s  eta=5816s  (31%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 38729.536132 -> 38706.751233
+  result = fit_em(
+[ 57/180] 2014-09-30 viterbi=0 iters=3 fit=390.8s  elapsed=2674s  eta=5771s  (32%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 39029.274930 -> 39010.025600
+  result = fit_em(
+[ 58/180] 2014-10-31 viterbi=0 iters=3 fit=375.6s  elapsed=2877s  eta=6052s  (32%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 39285.633418 -> 39266.337000
+  result = fit_em(
+[ 59/180] 2014-11-28 viterbi=0 iters=3 fit=375.3s  elapsed=2892s  eta=5931s  (33%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 39562.241029 -> 39545.875991
+  result = fit_em(
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 39880.785511 -> 39857.431522
+  result = fit_em(
+[ 60/180] 2014-12-31 viterbi=0 iters=3 fit=400.9s  elapsed=2955s  eta=5911s  (33%)
+[ 61/180] 2015-01-30 viterbi=0 iters=3 fit=393.9s  elapsed=2956s  eta=5767s  (34%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 40119.578624 -> 40107.162760
+  result = fit_em(
+[ 62/180] 2015-02-27 viterbi=0 iters=3 fit=358.8s  elapsed=2974s  eta=5661s  (34%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 40376.232688 -> 40362.949816
+  result = fit_em(
+[ 63/180] 2015-03-31 viterbi=0 iters=3 fit=365.0s  elapsed=2981s  eta=5536s  (35%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 40920.284481 -> 40899.787026
+  result = fit_em(
+[ 64/180] 2015-05-29 viterbi=0 iters=3 fit=359.5s  elapsed=3034s  eta=5499s  (36%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 40669.175164 -> 40666.634927
+  result = fit_em(
+[ 65/180] 2015-04-30 viterbi=0 iters=5 fit=513.7s  elapsed=3140s  eta=5556s  (36%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 41201.900429 -> 41168.737627
+  result = fit_em(
+[ 66/180] 2015-06-30 viterbi=0 iters=3 fit=361.5s  elapsed=3238s  eta=5594s  (37%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 41524.606710 -> 41515.190901
+  result = fit_em(
+[ 67/180] 2015-07-31 viterbi=0 iters=3 fit=356.8s  elapsed=3249s  eta=5479s  (37%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 41731.593343 -> 41731.133479
+  result = fit_em(
+[ 68/180] 2015-08-31 viterbi=0 iters=3 fit=396.4s  elapsed=3352s  eta=5520s  (38%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 42268.075535 -> 42258.850736
+  result = fit_em(
+[ 69/180] 2015-10-30 viterbi=0 iters=4 fit=428.2s  elapsed=3403s  eta=5474s  (38%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 41985.010735 -> 41978.815071
+  result = fit_em(
+[ 70/180] 2015-09-30 viterbi=0 iters=4 fit=490.8s  elapsed=3447s  eta=5417s  (39%)
+[ 71/180] 2015-11-30 viterbi=0 iters=5 fit=530.4s  elapsed=3511s  eta=5391s  (39%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 42743.299883 -> 42732.907758
+  result = fit_em(
+[ 72/180] 2015-12-31 viterbi=0 iters=5 fit=554.0s  elapsed=3588s  eta=5382s  (40%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 43241.776855 -> 43237.626959
+  result = fit_em(
+[ 73/180] 2016-02-29 viterbi=0 iters=3 fit=392.6s  elapsed=3631s  eta=5322s  (41%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 43435.814626 -> 43428.941626
+  result = fit_em(
+[ 74/180] 2016-03-31 viterbi=0 iters=3 fit=432.6s  elapsed=3681s  eta=5273s  (41%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 43831.048912 -> 43824.419236
+  result = fit_em(
+[ 75/180] 2016-05-31 viterbi=1 iters=3 fit=427.4s  elapsed=3830s  eta=5362s  (42%)
+[ 76/180] 2016-01-29 viterbi=0 iters=7 fit=721.5s  elapsed=3862s  eta=5285s  (42%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 44368.998421 -> 44358.430730
+  result = fit_em(
+[ 77/180] 2016-07-29 viterbi=0 iters=3 fit=403.3s  elapsed=3915s  eta=5236s  (43%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 44633.308408 -> 44614.511114
+  result = fit_em(
+[ 78/180] 2016-08-31 viterbi=0 iters=3 fit=354.4s  elapsed=3942s  eta=5155s  (43%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 44769.889767 -> 44675.711617
+  result = fit_em(
+[ 79/180] 2016-10-31 viterbi=0 iters=2 fit=294.5s  elapsed=3976s  eta=5083s  (44%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 44903.390530 -> 44877.658589
+  result = fit_em(
+[ 80/180] 2016-09-30 viterbi=0 iters=3 fit=371.9s  elapsed=4003s  eta=5004s  (44%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 44081.166064 -> 44055.354880
+  result = fit_em(
+[ 81/180] 2016-06-30 viterbi=0 iters=4 fit=570.1s  elapsed=4017s  eta=4910s  (45%)
+[ 82/180] 2016-04-29 viterbi=0 iters=7 fit=733.4s  elapsed=4085s  eta=4882s  (46%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 45017.169323 -> 44917.426337
+  result = fit_em(
+[ 83/180] 2016-11-30 viterbi=0 iters=2 fit=294.4s  elapsed=4124s  eta=4820s  (46%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 45184.733791 -> 45024.647194
+  result = fit_em(
+[ 84/180] 2016-12-30 viterbi=1 iters=2 fit=287.1s  elapsed=4149s  eta=4742s  (47%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 45471.299535 -> 45420.459946
+  result = fit_em(
+[ 85/180] 2017-01-31 viterbi=0 iters=2 fit=277.3s  elapsed=4192s  eta=4685s  (47%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 45764.468212 -> 45417.433893
+  result = fit_em(
+[ 86/180] 2017-02-28 viterbi=0 iters=2 fit=270.4s  elapsed=4213s  eta=4604s  (48%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 46033.418641 -> 45911.471663
+  result = fit_em(
+[ 87/180] 2017-03-31 viterbi=0 iters=2 fit=277.1s  elapsed=4253s  eta=4546s  (48%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 47523.007523 -> 47515.649102
+  result = fit_em(
+[ 88/180] 2017-07-31 viterbi=0 iters=3 fit=380.3s  elapsed=4505s  eta=4710s  (49%)
+[ 89/180] 2017-05-31 viterbi=0 iters=7 fit=660.4s  elapsed=4677s  eta=4783s  (49%)
+[ 90/180] 2017-08-31 viterbi=0 iters=6 fit=535.4s  elapsed=4684s  eta=4684s  (50%)
+[ 91/180] 2017-09-29 viterbi=0 iters=5 fit=515.4s  elapsed=4707s  eta=4604s  (51%)
+[ 92/180] 2017-06-30 viterbi=0 iters=6 fit=630.8s  elapsed=4716s  eta=4511s  (51%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 48682.247249 -> 48682.065242
+  result = fit_em(
+[ 93/180] 2017-11-30 viterbi=0 iters=5 fit=484.3s  elapsed=4737s  eta=4432s  (52%)
+[ 94/180] 2017-10-31 viterbi=0 iters=5 fit=532.2s  elapsed=4745s  eta=4341s  (52%)
+[ 95/180] 2017-04-28 viterbi=0 iters=9 fit=772.9s  elapsed=4776s  eta=4273s  (53%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 48966.665402 -> 48965.862449
+  result = fit_em(
+[ 96/180] 2017-12-29 viterbi=0 iters=4 fit=474.2s  elapsed=4979s  eta=4357s  (53%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 50113.452470 -> 50090.526114
+  result = fit_em(
+[ 97/180] 2018-04-30 viterbi=0 iters=3 fit=372.0s  elapsed=5088s  eta=4354s  (54%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 49836.631164 -> 49829.840865
+  result = fit_em(
+[ 98/180] 2018-03-29 viterbi=0 iters=3 fit=397.0s  elapsed=5104s  eta=4271s  (54%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 50613.065350 -> 50589.342926
+  result = fit_em(
+[ 99/180] 2018-06-29 viterbi=0 iters=3 fit=385.8s  elapsed=5131s  eta=4198s  (55%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 50363.388350 -> 50329.972769
+  result = fit_em(
+[100/180] 2018-05-31 viterbi=0 iters=3 fit=405.2s  elapsed=5143s  eta=4114s  (56%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 50859.715860 -> 50817.338937
+  result = fit_em(
+[101/180] 2018-07-31 viterbi=0 iters=3 fit=401.6s  elapsed=5177s  eta=4050s  (56%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 49244.218356 -> 49244.101437
+  result = fit_em(
+[102/180] 2018-01-31 viterbi=0 iters=5 fit=514.5s  elapsed=5192s  eta=3970s  (57%)
+[103/180] 2018-02-28 viterbi=0 iters=5 fit=568.4s  elapsed=5253s  eta=3927s  (57%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 51661.692399 -> 51636.192789
+  result = fit_em(
+[104/180] 2018-10-31 viterbi=0 iters=3 fit=396.7s  elapsed=5501s  eta=4020s  (58%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 51844.293814 -> 51816.968745
+  result = fit_em(
+[105/180] 2018-11-30 viterbi=0 iters=3 fit=388.1s  elapsed=5519s  eta=3942s  (58%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 52079.017055 -> 52032.250744
+  result = fit_em(
+[106/180] 2018-12-31 viterbi=0 iters=3 fit=391.2s  elapsed=5534s  eta=3863s  (59%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 52372.092216 -> 52320.145751
+  result = fit_em(
+[107/180] 2019-01-31 viterbi=0 iters=3 fit=386.6s  elapsed=5564s  eta=3796s  (59%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 52604.700225 -> 52538.391481
+  result = fit_em(
+[108/180] 2019-02-28 viterbi=0 iters=3 fit=376.1s  elapsed=5568s  eta=3712s  (60%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 51480.658899 -> 51478.111010
+  result = fit_em(
+[109/180] 2018-09-28 viterbi=0 iters=4 fit=514.7s  elapsed=5603s  eta=3649s  (61%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 52907.333016 -> 52843.672530
+  result = fit_em(
+[110/180] 2019-03-29 viterbi=0 iters=3 fit=388.4s  elapsed=5641s  eta=3590s  (61%)
+[111/180] 2018-08-31 viterbi=0 iters=6 fit=667.7s  elapsed=5647s  eta=3510s  (62%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 53584.472821 -> 53495.845951
+  result = fit_em(
+[112/180] 2019-06-28 viterbi=0 iters=3 fit=402.4s  elapsed=5936s  eta=3604s  (62%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 54069.377547 -> 53964.159125
+  result = fit_em(
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 53842.457398 -> 53764.027210
+  result = fit_em(
+[113/180] 2019-08-30 viterbi=0 iters=3 fit=403.5s  elapsed=5972s  eta=3541s  (63%)
+[114/180] 2019-07-31 viterbi=0 iters=3 fit=409.8s  elapsed=5974s  eta=3459s  (63%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 54267.854131 -> 54178.593982
+  result = fit_em(
+[115/180] 2019-09-30 viterbi=0 iters=3 fit=375.8s  elapsed=5979s  eta=3379s  (64%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 54829.668027 -> 54722.152662
+  result = fit_em(
+[116/180] 2019-11-29 viterbi=0 iters=3 fit=374.3s  elapsed=6021s  eta=3322s  (64%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 54444.523022 -> 54331.385036
+  result = fit_em(
+[117/180] 2019-10-31 viterbi=0 iters=3 fit=404.7s  elapsed=6046s  eta=3255s  (65%)
+[118/180] 2019-04-30 viterbi=0 iters=7 fit=690.8s  elapsed=6192s  eta=3253s  (66%)
+[119/180] 2019-05-31 viterbi=0 iters=7 fit=692.5s  elapsed=6211s  eta=3184s  (66%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 55215.408718 -> 55073.649240
+  result = fit_em(
+[120/180] 2019-12-31 viterbi=0 iters=3 fit=371.1s  elapsed=6308s  eta=3154s  (67%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 55572.239390 -> 55537.579558
+  result = fit_em(
+[121/180] 2020-01-31 viterbi=0 iters=3 fit=378.6s  elapsed=6350s  eta=3096s  (67%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 56064.110689 -> 55981.226685
+  result = fit_em(
+[122/180] 2020-03-31 viterbi=0 iters=3 fit=377.2s  elapsed=6356s  eta=3022s  (68%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 56252.502591 -> 56209.935626
+  result = fit_em(
+[123/180] 2020-04-30 viterbi=1 iters=3 fit=354.0s  elapsed=6375s  eta=2954s  (68%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 56425.877852 -> 56408.426029
+  result = fit_em(
+[124/180] 2020-05-29 viterbi=1 iters=3 fit=364.5s  elapsed=6410s  eta=2895s  (69%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 55650.038038 -> 55579.316416
+  result = fit_em(
+[125/180] 2020-02-28 viterbi=0 iters=4 fit=499.6s  elapsed=6473s  eta=2848s  (69%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 56678.652640 -> 56670.875677
+  result = fit_em(
+[126/180] 2020-06-30 viterbi=0 iters=3 fit=419.2s  elapsed=6611s  eta=2833s  (70%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 56943.242690 -> 56930.626892
+  result = fit_em(
+[127/180] 2020-07-31 viterbi=0 iters=3 fit=408.2s  elapsed=6619s  eta=2762s  (71%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 57151.024932 -> 57147.070444
+  result = fit_em(
+[128/180] 2020-08-31 viterbi=0 iters=3 fit=421.5s  elapsed=6729s  eta=2734s  (71%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 57650.505072 -> 57636.117773
+  result = fit_em(
+[129/180] 2020-10-30 viterbi=0 iters=4 fit=527.7s  elapsed=6883s  eta=2721s  (72%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 57381.658004 -> 57362.817552
+  result = fit_em(
+[130/180] 2020-09-30 viterbi=0 iters=4 fit=544.0s  elapsed=6894s  eta=2652s  (72%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 57844.678696 -> 57844.079846
+  result = fit_em(
+[131/180] 2020-11-30 viterbi=0 iters=6 fit=693.4s  elapsed=7068s  eta=2644s  (73%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 58875.446016 -> 58805.137909
+  result = fit_em(
+[132/180] 2021-04-30 viterbi=0 iters=3 fit=371.7s  elapsed=7101s  eta=2582s  (73%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 58263.123327 -> 58248.189608
+  result = fit_em(
+[133/180] 2021-01-29 viterbi=0 iters=5 fit=661.7s  elapsed=7135s  eta=2521s  (74%)
+[134/180] 2020-12-31 viterbi=1 iters=7 fit=772.4s  elapsed=7183s  eta=2466s  (74%)
+[135/180] 2021-02-26 viterbi=0 iters=6 fit=645.8s  elapsed=7257s  eta=2419s  (75%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 58651.725439 -> 58647.535170
+  result = fit_em(
+[136/180] 2021-03-31 viterbi=1 iters=6 fit=655.6s  elapsed=7275s  eta=2354s  (76%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 59111.647822 -> 58997.356393
+  result = fit_em(
+[137/180] 2021-05-28 viterbi=0 iters=3 fit=427.6s  elapsed=7311s  eta=2295s  (76%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 59351.856469 -> 59273.998992
+  result = fit_em(
+[138/180] 2021-06-30 viterbi=0 iters=3 fit=435.8s  elapsed=7330s  eta=2231s  (77%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 59633.100134 -> 59528.997130
+  result = fit_em(
+[139/180] 2021-07-30 viterbi=0 iters=3 fit=400.8s  elapsed=7469s  eta=2203s  (77%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 59943.882456 -> 59848.625101
+  result = fit_em(
+[140/180] 2021-08-31 viterbi=0 iters=3 fit=410.8s  elapsed=7512s  eta=2146s  (78%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 60266.306807 -> 60171.931557
+  result = fit_em(
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 60219.482530 -> 60157.387523
+  result = fit_em(
+[141/180] 2021-09-30 viterbi=0 iters=3 fit=416.9s  elapsed=7552s  eta=2089s  (78%)
+[142/180] 2021-10-29 viterbi=0 iters=3 fit=370.8s  elapsed=7554s  eta=2021s  (79%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 60862.530692 -> 60795.769511
+  result = fit_em(
+[143/180] 2021-11-30 viterbi=0 iters=3 fit=427.3s  elapsed=7684s  eta=1988s  (79%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 61563.723497 -> 61509.707589
+  result = fit_em(
+[144/180] 2022-02-28 viterbi=0 iters=3 fit=416.3s  elapsed=7746s  eta=1937s  (80%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 61849.706344 -> 61687.130765
+  result = fit_em(
+[145/180] 2022-03-31 viterbi=0 iters=3 fit=416.2s  elapsed=7885s  eta=1903s  (81%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 62060.460202 -> 61979.131908
+  result = fit_em(
+[146/180] 2022-04-29 viterbi=0 iters=3 fit=386.5s  elapsed=7898s  eta=1839s  (81%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 62460.438691 -> 62431.727398
+  result = fit_em(
+[147/180] 2022-06-30 viterbi=0 iters=3 fit=400.3s  elapsed=7954s  eta=1786s  (82%)
+[148/180] 2022-01-31 viterbi=0 iters=6 fit=644.0s  elapsed=7955s  eta=1720s  (82%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 62238.245570 -> 62090.962110
+  result = fit_em(
+[149/180] 2022-05-31 viterbi=0 iters=3 fit=409.6s  elapsed=7962s  eta=1656s  (83%)
+[150/180] 2021-12-31 viterbi=0 iters=7 fit=763.3s  elapsed=8038s  eta=1608s  (83%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 62638.817268 -> 62510.798340
+  result = fit_em(
+[151/180] 2022-07-29 viterbi=0 iters=3 fit=407.9s  elapsed=8092s  eta=1554s  (84%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 62890.020257 -> 62727.619325
+  result = fit_em(
+[152/180] 2022-08-31 viterbi=0 iters=3 fit=436.0s  elapsed=8182s  eta=1507s  (84%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 63662.280704 -> 63549.928519
+  result = fit_em(
+[153/180] 2022-12-30 viterbi=0 iters=2 fit=330.3s  elapsed=8285s  eta=1462s  (85%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 63947.784053 -> 63851.757095
+  result = fit_em(
+[154/180] 2023-01-31 viterbi=0 iters=2 fit=326.9s  elapsed=8289s  eta=1399s  (86%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 63138.071833 -> 63070.944893
+  result = fit_em(
+[155/180] 2022-09-30 viterbi=0 iters=3 fit=444.7s  elapsed=8330s  eta=1344s  (86%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 63338.101036 -> 63335.757953
+  result = fit_em(
+[156/180] 2022-10-31 viterbi=0 iters=3 fit=451.0s  elapsed=8349s  eta=1284s  (87%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 63437.964714 -> 63276.262829
+  result = fit_em(
+[157/180] 2022-11-30 viterbi=1 iters=3 fit=402.0s  elapsed=8356s  eta=1224s  (87%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 64343.332346 -> 64188.689033
+  result = fit_em(
+[158/180] 2023-02-28 viterbi=0 iters=3 fit=407.8s  elapsed=8446s  eta=1176s  (88%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 64794.097659 -> 64655.732769
+  result = fit_em(
+[159/180] 2023-04-28 viterbi=0 iters=3 fit=432.5s  elapsed=8615s  eta=1138s  (88%)
+[160/180] 2023-03-31 viterbi=0 iters=5 fit=592.1s  elapsed=8684s  eta=1086s  (89%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 65634.090659 -> 65546.009517
+  result = fit_em(
+[161/180] 2023-07-31 viterbi=0 iters=3 fit=391.8s  elapsed=8722s  eta=1029s  (89%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 65803.127550 -> 65787.354837
+  result = fit_em(
+[162/180] 2023-08-31 viterbi=0 iters=3 fit=414.7s  elapsed=8764s  eta=974s  (90%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 66090.725997 -> 66039.871976
+  result = fit_em(
+[163/180] 2023-09-29 viterbi=0 iters=3 fit=412.3s  elapsed=8768s  eta=914s  (91%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 66387.990682 -> 66353.219623
+  result = fit_em(
+[164/180] 2023-10-31 viterbi=0 iters=3 fit=422.3s  elapsed=8869s  eta=865s  (91%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 66954.785367 -> 66917.030672
+  result = fit_em(
+[165/180] 2024-02-29 viterbi=0 iters=2 fit=290.8s  elapsed=9055s  eta=823s  (92%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 66592.808627 -> 66547.692128
+  result = fit_em(
+[166/180] 2023-11-30 viterbi=0 iters=3 fit=456.1s  elapsed=9071s  eta=765s  (92%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 66781.283571 -> 66752.605924
+  result = fit_em(
+[167/180] 2023-12-29 viterbi=0 iters=3 fit=413.1s  elapsed=9097s  eta=708s  (93%)
+[168/180] 2023-05-31 viterbi=1 iters=9 fit=818.7s  elapsed=9104s  eta=650s  (93%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 67135.478818 -> 67098.846659
+  result = fit_em(
+[169/180] 2024-03-28 viterbi=0 iters=3 fit=365.0s  elapsed=9133s  eta=594s  (94%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 65243.117662 -> 65241.810724
+  result = fit_em(
+[170/180] 2023-06-30 viterbi=0 iters=7 fit=856.1s  elapsed=9145s  eta=538s  (94%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 67363.665313 -> 67301.167787
+  result = fit_em(
+[171/180] 2024-04-30 viterbi=0 iters=2 fit=280.3s  elapsed=9149s  eta=482s  (95%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 67025.871006 -> 66969.109767
+  result = fit_em(
+[172/180] 2024-01-31 viterbi=0 iters=5 fit=619.5s  elapsed=9342s  eta=434s  (96%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 68097.226499 -> 67966.968846
+  result = fit_em(
+[173/180] 2024-06-28 viterbi=0 iters=2 fit=300.4s  elapsed=9371s  eta=379s  (96%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 68375.283120 -> 68265.419970
+  result = fit_em(
+[174/180] 2024-07-31 viterbi=0 iters=2 fit=312.4s  elapsed=9410s  eta=324s  (97%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 67820.054184 -> 67728.929241
+  result = fit_em(
+[175/180] 2024-05-31 viterbi=0 iters=3 fit=369.6s  elapsed=9424s  eta=269s  (97%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 68563.722484 -> 68240.986473
+  result = fit_em(
+[176/180] 2024-08-30 viterbi=1 iters=2 fit=324.2s  elapsed=9428s  eta=214s  (98%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 68786.234305 -> 68651.089600
+  result = fit_em(
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 69338.173669 -> 69271.221071
+  result = fit_em(
+[177/180] 2024-09-30 viterbi=0 iters=2 fit=311.0s  elapsed=9445s  eta=160s  (98%)
+[178/180] 2024-11-29 viterbi=0 iters=2 fit=297.2s  elapsed=9446s  eta=106s  (99%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 69158.602185 -> 69101.933833
+  result = fit_em(
+[179/180] 2024-10-31 viterbi=0 iters=3 fit=334.8s  elapsed=9479s  eta=53s  (99%)
+/Users/damandhaliwal/Documents/University of Toronto/Term 2/STA2104/Term Project/scripts/run_real.py:81: RuntimeWarning: observed log-likelihood decreased: 69498.986964 -> 69355.759903
+  result = fit_em(
+[180/180] 2024-12-31 viterbi=1 iters=2 fit=154.7s  elapsed=9496s  eta=0s  (100%)
+wrote 87,405 prediction rows, 180 regime rows, and 180 parameter snapshots to output/real_matern52 in 9497s

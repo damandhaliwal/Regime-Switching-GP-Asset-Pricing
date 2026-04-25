@@ -60,6 +60,26 @@ def _se_ard(X: jnp.ndarray, Z: jnp.ndarray, ls: jnp.ndarray, sf2: jnp.ndarray) -
     return sf2 * jnp.exp(-0.5 * d2)
 
 
+def _matern52_ard(X: jnp.ndarray, Z: jnp.ndarray, ls: jnp.ndarray, sf2: jnp.ndarray) -> jnp.ndarray:
+    Xs = X / ls
+    Zs = Z / ls
+    d2 = (Xs * Xs).sum(axis=-1)[..., :, None] + (Zs * Zs).sum(axis=-1)[..., None, :] - 2.0 * Xs @ Zs.T
+    d2 = jnp.maximum(d2, 0.0)
+    # Guard sqrt against NaN gradient at d=0.
+    r = jnp.sqrt(d2 + 1e-12)
+    sqrt5 = jnp.sqrt(5.0)
+    return sf2 * (1.0 + sqrt5 * r + (5.0 / 3.0) * d2) * jnp.exp(-sqrt5 * r)
+
+
+_KERNEL_NAME = os.environ.get("RSGP_KERNEL", "se_ard")
+if _KERNEL_NAME == "se_ard":
+    _KERNEL_JAX = _se_ard
+elif _KERNEL_NAME == "matern52_ard":
+    _KERNEL_JAX = _matern52_ard
+else:
+    raise ValueError(f"unknown RSGP_KERNEL={_KERNEL_NAME!r}")
+
+
 # --------------------------------------------------------------------------- #
 # Single-month marginal log-likelihood with mask + jitter escalation          #
 # --------------------------------------------------------------------------- #
@@ -95,7 +115,7 @@ def _month_neg_ll(ls: jnp.ndarray, sf2: jnp.ndarray, sn2: jnp.ndarray,
     """
     N = X.shape[0]
     I = jnp.eye(N, dtype=X.dtype)
-    K_valid = _se_ard(X, X, ls, sf2) + sn2 * I
+    K_valid = _KERNEL_JAX(X, X, ls, sf2) + sn2 * I
     M = mask[:, None] * mask[None, :]
     K = K_valid * M + (1.0 - M) * I
     y_masked = y * mask

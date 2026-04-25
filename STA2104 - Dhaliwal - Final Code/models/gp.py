@@ -13,6 +13,7 @@ Weighted variant (for M-step):
 """
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass
 from typing import Sequence
 
@@ -23,6 +24,8 @@ from models.gp_jax import fit_gp_hyperparameters_jax
 
 JITTER_BASE = 1e-6
 JITTER_STEPS = (1.0, 10.0, 100.0, 1000.0)  # multiplied by JITTER_BASE
+
+KERNEL_NAME = os.environ.get("RSGP_KERNEL", "se_ard")
 
 
 # --------------------------------------------------------------------------- #
@@ -37,6 +40,29 @@ def se_ard_kernel(X: np.ndarray, Z: np.ndarray, lengthscales: np.ndarray,
     d2 = (Xs * Xs).sum(axis=1)[:, None] + (Zs * Zs).sum(axis=1)[None, :] - 2.0 * Xs @ Zs.T
     np.maximum(d2, 0.0, out=d2)
     return signal_var * np.exp(-0.5 * d2)
+
+
+def matern52_ard_kernel(X: np.ndarray, Z: np.ndarray, lengthscales: np.ndarray,
+                        signal_var: float) -> np.ndarray:
+    """Matérn-5/2 ARD: signal_var * (1 + √5 r + 5r²/3) exp(-√5 r), r² = Σ_d (Δx_d/ℓ_d)²."""
+    Xs = X / lengthscales
+    Zs = Z / lengthscales
+    d2 = (Xs * Xs).sum(axis=1)[:, None] + (Zs * Zs).sum(axis=1)[None, :] - 2.0 * Xs @ Zs.T
+    np.maximum(d2, 0.0, out=d2)
+    r = np.sqrt(d2)
+    sqrt5 = np.sqrt(5.0)
+    return signal_var * (1.0 + sqrt5 * r + (5.0 / 3.0) * d2) * np.exp(-sqrt5 * r)
+
+
+def _kernel_fn(name: str):
+    if name == "se_ard":
+        return se_ard_kernel
+    if name == "matern52_ard":
+        return matern52_ard_kernel
+    raise ValueError(f"unknown RSGP_KERNEL={name!r}; expected 'se_ard' or 'matern52_ard'")
+
+
+KERNEL_FN = _kernel_fn(KERNEL_NAME)
 
 
 def _stable_chol(A: np.ndarray) -> tuple[np.ndarray, bool]:
@@ -55,7 +81,7 @@ def marginal_log_likelihood(X: np.ndarray, y: np.ndarray,
                             lengthscales: np.ndarray,
                             signal_var: float, noise_var: float) -> float:
     N = y.shape[0]
-    K = se_ard_kernel(X, X, lengthscales, signal_var)
+    K = KERNEL_FN(X, X, lengthscales, signal_var)
     A = K + noise_var * np.eye(N)
     L, ok = _stable_chol(A)
     if not ok:
@@ -267,14 +293,14 @@ def fit_gp_hyperparameters(
 def predict(X_train: np.ndarray, y_train: np.ndarray, X_test: np.ndarray,
             hp: GPHyperparams) -> tuple[np.ndarray, np.ndarray]:
     """Return posterior (mean, variance) at X_test. Variance includes noise."""
-    K = se_ard_kernel(X_train, X_train, hp.lengthscales, hp.signal_var)
+    K = KERNEL_FN(X_train, X_train, hp.lengthscales, hp.signal_var)
     K += hp.noise_var * np.eye(X_train.shape[0])
     L, ok = _stable_chol(K)
     if not ok:
         N = X_test.shape[0]
         return np.zeros(N), np.full(N, hp.signal_var + hp.noise_var)
     alpha = cho_solve((L, True), y_train)
-    Ks = se_ard_kernel(X_train, X_test, hp.lengthscales, hp.signal_var)
+    Ks = KERNEL_FN(X_train, X_test, hp.lengthscales, hp.signal_var)
     mean = Ks.T @ alpha
     v = cho_solve((L, True), Ks)
     var_f = hp.signal_var - np.einsum("ij,ij->j", Ks, v)

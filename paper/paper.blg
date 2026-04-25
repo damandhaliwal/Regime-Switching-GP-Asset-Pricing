@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2024)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: paper.aux
+The style file: chicago.bst
+Database file #1: references.bib
+Warning--no number and no volume in filipovic_empirical_2025
+Warning--page numbers missing in filipovic_empirical_2025
+Warning--page numbers missing in li_hidden_2023
+You've used 6 entries,
+            2861 wiz_defined-function locations,
+            658 strings with 6033 characters,
+and the built_in function-call counts, 4336 in all, are:
+= -- 384
+> -- 321
+< -- 0
++ -- 98
+- -- 118
+* -- 403
+:= -- 786
+add.period$ -- 20
+call.type$ -- 6
+change.case$ -- 43
+chr.to.int$ -- 6
+cite$ -- 9
+duplicate$ -- 105
+empty$ -- 245
+format.name$ -- 142
+if$ -- 794
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 6
+newline$ -- 35
+num.names$ -- 60
+pop$ -- 23
+preamble$ -- 1
+purify$ -- 79
+quote$ -- 0
+skip$ -- 128
+stack$ -- 0
+substring$ -- 217
+swap$ -- 35
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 120
+warning$ -- 3
+while$ -- 64
+width$ -- 0
+write$ -- 84
+(There were 3 warnings)

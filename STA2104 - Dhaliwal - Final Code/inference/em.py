@@ -54,6 +54,7 @@ class EMResult:
     log_emit: np.ndarray
     z_columns: list[str] = field(default_factory=list)
     converged: bool = False
+    early_stopped: bool = False
 
 
 def _compute_gp_emission_log_likelihoods(
@@ -266,6 +267,7 @@ def fit_em(
     history: list[float] = []
     stale = 0
     converged = False
+    early_stopped = False
 
     for _ in range(max_iter):
         log_emit = _compute_gp_emission_log_likelihoods(X_fit, returns_fit, gp_params)
@@ -282,7 +284,7 @@ def fit_em(
                 if config.strict_monotone:
                     raise AssertionError(msg)
                 warnings.warn(msg, RuntimeWarning, stacklevel=2)
-                converged = True
+                early_stopped = True
                 break
 
             rel = abs(history[-1] - history[-2]) / max(1.0, abs(history[-2]))
@@ -325,6 +327,7 @@ def fit_em(
         log_emit=full_log_emit,
         z_columns=list(z_columns or []),
         converged=converged,
+        early_stopped=early_stopped,
     )
 
 
@@ -426,6 +429,8 @@ def predict_next_month(
     regime_means_arr = np.vstack(regime_means)
     regime_vars_arr = np.vstack(regime_vars)
     P_next = _transition_matrix_for_covariate(result.transition_W, result.transition_b, next_z)
+    # At the terminal point of the training window, the smoothed posterior
+    # gamma[-1] equals the filtered posterior; no forecast-month returns enter.
     next_regime_probs = result.gamma[-1] @ P_next
     pred_mean = next_regime_probs @ regime_means_arr
     pred_var = next_regime_probs @ (regime_vars_arr + regime_means_arr ** 2) - pred_mean ** 2

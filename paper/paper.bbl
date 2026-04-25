@@ -5,9 +5,31 @@ Fama, E.~F. and J.~D. MacBeth (1973).
 \newblock Risk, {Return}, and {Equilibrium}: {Empirical} {Tests}.
 \newblock {\em Journal of Political Economy\/}~{\em 81\/}(3), 607--636.
 
+\bibitem[\protect\citeauthoryear{Filipović and Pasricha}{Filipović and Pasricha}{2025}]{filipovic_empirical_2025}
+Filipović, D. and P.~Pasricha (2025, January).
+\newblock Empirical {Asset} {Pricing} via {Ensemble} {Gaussian} {Process} {Regression}.
+\newblock {\em Papers\/}.
+\newblock Number: 2212.01048.
+
 \bibitem[\protect\citeauthoryear{Gu, Kelly, and Xiu}{Gu et~al.}{2020}]{gu_empirical_2020}
 Gu, S., B.~Kelly, and D.~Xiu (2020, May).
 \newblock Empirical {Asset} {Pricing} via {Machine} {Learning}.
 \newblock {\em The Review of Financial Studies\/}~{\em 33\/}(5), 2223--2273.
+
+\bibitem[\protect\citeauthoryear{Guidolin and Timmermann}{Guidolin and Timmermann}{2008}]{guidolin_size_2008}
+Guidolin, M. and A.~Timmermann (2008, January).
+\newblock Size and {Value} {Anomalies} under {Regime} {Shifts}.
+\newblock {\em Journal of Financial Econometrics\/}~{\em 6\/}(1), 1--48.
+
+\bibitem[\protect\citeauthoryear{Jung and Park}{Jung and Park}{2022}]{jung_scalable_2022}
+Jung, Y. and J.~Park (2022, July).
+\newblock Scalable {Inference} for {Hybrid} {Bayesian} {Hidden} {Markov} {Model} {Using} {Gaussian} {Process} {Emission}.
+\newblock {\em Journal of Computational and Graphical Statistics\/}~{\em 31\/}(3), 666--683.
+\newblock \_eprint: https://doi.org/10.1080/10618600.2021.2023021.
+
+\bibitem[\protect\citeauthoryear{Li and Ma}{Li and Ma}{2023}]{li_hidden_2023}
+Li, T. and J.~Ma (2023, March).
+\newblock Hidden {Markov} {Mixture} of {Gaussian} {Process} {Functional} {Regression}: {Utilizing} {Multi}-{Scale} {Structure} for {Time} {Series} {Forecasting}.
+\newblock {\em Mathematics\/}~{\em 11\/}(5).
 
 \end{thebibliography}

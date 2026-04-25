@@ -19,6 +19,7 @@ from pathlib import Path
 import sys
 import time
 
+import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -54,6 +55,18 @@ def _serialize_gp_params(gp_params) -> list[dict[str, object]]:
     ]
 
 
+def _noise_var_order(gp_params) -> np.ndarray:
+    """Stable regime labels: regime 0 has the lower GP noise variance."""
+    noise = np.array([float(hp.noise_var) for hp in gp_params], dtype=np.float64)
+    return np.argsort(noise, kind="stable")
+
+
+def _inverse_order(order: np.ndarray) -> np.ndarray:
+    inverse = np.empty_like(order)
+    inverse[order] = np.arange(len(order), dtype=order.dtype)
+    return inverse
+
+
 def _fit_one_month(task: dict) -> dict:
     """Run one cold EM fit + next-month prediction. Must be top-level + picklable."""
     # Imports inside the worker so each child picks up the per-worker env flags.
@@ -82,6 +95,11 @@ def _fit_one_month(task: dict) -> dict:
         max_points=config.max_prediction_points,
         seed=t,
     )
+    regime_order = _noise_var_order(result.gp_params)
+    inverse_regime_order = _inverse_order(regime_order)
+    ordered_next_probs = pred["next_regime_probs"][regime_order]
+    ordered_current_probs = result.gamma[-1][regime_order]
+    ordered_gp_params = [result.gp_params[idx] for idx in regime_order]
 
     date = pd.to_datetime(aligned.dates[t])
     train_end = pd.to_datetime(aligned.dates[t - 1])
@@ -101,25 +119,26 @@ def _fit_one_month(task: dict) -> dict:
     regime_row = {
         "date": date,
         "train_end_date": train_end,
-        "train_state": int(result.viterbi_path[-1]),
-        "viterbi_state": int(result.viterbi_path[-1]),
-        "predicted_state": int(pred["next_regime_probs"].argmax()),
+        "train_state": int(inverse_regime_order[int(result.viterbi_path[-1])]),
+        "viterbi_state": int(inverse_regime_order[int(result.viterbi_path[-1])]),
+        "predicted_state": int(ordered_next_probs.argmax()),
         "converged": bool(result.converged),
+        "early_stopped": bool(result.early_stopped),
         "full_log_likelihood": float(result.full_log_likelihood),
         "subsampled_log_likelihood": float(result.subsampled_log_likelihood_history[-1]),
         "n_em_iters": len(result.subsampled_log_likelihood_history),
     }
-    for k, prob in enumerate(pred["next_regime_probs"]):
+    for k, prob in enumerate(ordered_next_probs):
         regime_row[f"next_prob_{k}"] = float(prob)
-    for k, prob in enumerate(result.gamma[-1]):
+    for k, prob in enumerate(ordered_current_probs):
         regime_row[f"current_prob_{k}"] = float(prob)
     param_entry = {
         "date": date,
         "train_end_date": train_end,
-        "pi": result.pi.copy(),
-        "gp_params": _serialize_gp_params(result.gp_params),
-        "transition_W": result.transition_W.copy(),
-        "transition_b": result.transition_b.copy(),
+        "pi": result.pi[regime_order].copy(),
+        "gp_params": _serialize_gp_params(ordered_gp_params),
+        "transition_W": result.transition_W[regime_order][:, regime_order, :].copy(),
+        "transition_b": result.transition_b[regime_order][:, regime_order].copy(),
         "subsampled_log_likelihood_history": list(result.subsampled_log_likelihood_history),
         "full_log_likelihood": float(result.full_log_likelihood),
     }
@@ -146,7 +165,13 @@ def main() -> None:
     parser.add_argument("--max-monthly-points", type=int, default=None)
     parser.add_argument("--max-months-per-regime-fit", type=int, default=None,
                         help="Cap months per regime in the M-step (None disables).")
+    parser.add_argument("--kernel", choices=["se_ard", "matern52_ard"], default="se_ard",
+                        help="GP kernel family for the main model.")
     args = parser.parse_args()
+
+    # Propagate kernel choice to workers via env var. Must be set before any
+    # import that touches models/gp* in either the parent or the spawned worker.
+    os.environ["RSGP_KERNEL"] = args.kernel
 
     # Import after argparse so --help is fast and so main process has JAX ready
     # (workers import fresh inside _fit_one_month).
@@ -208,7 +233,12 @@ def main() -> None:
     with open(output_dir / "params.pkl", "wb") as f:
         pickle.dump(param_history, f, protocol=pickle.HIGHEST_PROTOCOL)
     with open(output_dir / "config.json", "w") as f:
-        json.dump({"script_args": vars(args), "em_config": asdict(config)}, f, indent=2, default=str)
+        json.dump({
+            "script_args": vars(args),
+            "em_config": asdict(config),
+            "regime_labeling": "ascending_gp_noise_var",
+            "kernel": args.kernel,
+        }, f, indent=2, default=str)
 
     print(
         f"wrote {len(prediction_rows):,} prediction rows, "
