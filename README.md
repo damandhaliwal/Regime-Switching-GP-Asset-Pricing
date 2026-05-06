@@ -216,7 +216,7 @@ Output: `Data/parquet/char_panel_raw.parquet`.
 4. Cross-sectional rank transform to $[-0.5, 0.5]$ per month (Gu/Kelly/Xiu convention); missing values imputed with 0 (cross-sectional median of the transformed scale).
 5. Drop months with fewer than 30 stocks.
 
-Output: `Data/parquet/panel.pickle` — ragged lists `{dates, returns, X, permnos}` with T ≈ 300 months and mean $N_t \approx 470$ stocks.
+Output: `Data/parquet/panel.pickle` — a pickle file (stored alongside the parquet files for convenience) containing ragged lists `{dates, returns, X, permnos}` with T ≈ 300 months and mean $N_t \approx 470$ stocks.
 
 **Macro covariates** (`rsgp/macro.py`):
 ```bash
@@ -364,7 +364,7 @@ All baselines use the same rolling-window protocol (initial training 2000–2009
 | Forward-backward precision | Log-space with `logsumexp` | Prevents underflow past month ~20 |
 | Cholesky stability | Jitter $10^{-6} \cdot I$ with up to $10^3\times$ fallback | Ensures PSD kernel matrices |
 | Logistic clip | Linear predictors clipped to $[-30, 30]$ | Prevents NaN gradients from macro spikes (e.g., March 2020 VIX) |
-| GP optimizer | L-BFGS-B with 3–5 random restarts via JAX JIT | LBFGS converges reliably; JAX JIT provides autodiff gradients and batched Cholesky |
+| GP optimizer | L-BFGS-B with 3–5 random restarts via JAX JIT | L-BFGS-B converges reliably; JAX JIT provides autodiff gradients and batched Cholesky |
 | Regime initialization | K-means on rolling 3-month S&P 500 volatility | Deterministic, avoids random-init local optima |
 | Label switching | Regimes relabeled by ascending GP noise variance after every fit | Ensures regime 0 = low-volatility / calm and regime 1 = high-volatility / crisis |
 | Ragged panel | Lists of per-month arrays; no padding | Padding silently corrupts GP marginal likelihoods (varying $N_t$) |
